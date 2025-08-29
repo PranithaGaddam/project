@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Prompt Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            text-align: center;
+            padding: 50px;
+        }
+        select, button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        #prompt {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Story Prompt Generator</h1>
+
+    <div>
+        <label for="genre">Choose a genre:</label>
+        <select id="genre">
+            <option value="">Random</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="theme">Choose a theme:</label>
+        <select id="theme">
+            <option value="">Random</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="character">Choose a character type:</label>
+        <select id="character">
+            <option value="">Random</option>
+        </select>
+    </div>
+
+    <button onclick="generatePrompt()">Generate Prompt</button>
+
+    <div id="prompt"></div>
+
+    <script>
+        const genres = ["Mystery", "Fantasy", "Science Fiction", "Romance", "Horror", "Historical"];
+        const themes = ["Overcoming adversity", "Forbidden love", "Revenge", "Identity discovery",
+                        "Sacrifice", "Redemption", "Moral dilemma"];
+        const character_types = ["Reluctant hero", "Outcast", "Rebel", "Mentor", "Naive apprentice",
+                                 "Unlikely villain", "Secretive stranger", "Loyal friend"];
+
+        const genreSelect = document.getElementById("genre");
+        const themeSelect = document.getElementById("theme");
+        const characterSelect = document.getElementById("character");
+        const promptDiv = document.getElementById("prompt");
+
+        // Populate select options
+        genres.forEach(g => { 
+            let opt = document.createElement("option"); 
+            opt.value = g; opt.text = g; 
+            genreSelect.add(opt); 
+        });
+        themes.forEach(t => { 
+            let opt = document.createElement("option"); 
+            opt.value = t; opt.text = t; 
+            themeSelect.add(opt); 
+        });
+        character_types.forEach(c => { 
+            let opt = document.createElement("option"); 
+            opt.value = c; opt.text = c; 
+            characterSelect.add(opt); 
+        });
+
+        function getRandom(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function generatePrompt() {
+            const genre = genreSelect.value || getRandom(genres);
+            const theme = themeSelect.value || getRandom(themes);
+            const character = characterSelect.value || getRandom(character_types);
+
+            const storyPrompt = `Write a ${genre.toLowerCase()} story with the theme of '${theme.toLowerCase()}', featuring a ${character.toLowerCase()} as the main character. What challenges do they face and how does the theme shape their actions?`;
+
+            promptDiv.innerHTML = `<strong>Generated Story Prompt:</strong><br>${storyPrompt}`;
+        }
+    </script>
+</body>
+</html>
